@@ -27,10 +27,12 @@ class GruposUsersController extends Controller
         else
             return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido criado corretamente'],'500');
     }
+
     public function index() {
         $listaGrupo = Grupo::all();
         return $listaGrupo;
     }
+
     public function show($id) {
         $grupo = Grupo::find($id);
         $permissoes = array();
@@ -47,5 +49,16 @@ class GruposUsersController extends Controller
             'grupo' => $grupo->nomeGrupo,
             'funcoesPermissoes' => $permissoes
         ]);
+    }
+
+    public function destroy(Request $request) {
+        $grupo = Grupo::find($request->idGrupo);
+        if($grupo != null) {
+            $grupo->funcoes()->detach();
+            $grupo->delete();
+            return response()->json(['message' => 'Grupo excluído  com sucesso']);
+        }
+        else
+            return response()->json(['message'=>'Ops! O grupo a ser excluído  não foi encontrado'],'500');
     }
 }
