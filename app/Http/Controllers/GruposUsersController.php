@@ -64,4 +64,19 @@ class GruposUsersController extends Controller
         else
             return response()->json(['message'=>'Ops! O grupo a ser excluído  não foi encontrado'],'500');
     }
+
+    public function update(Request $request) {
+        $grupo = Grupo::find($request->idGrupo);
+        if($grupo == null)
+            return response()->json(['message'=>'Ops! O grupo a ser alterado  não foi encontrado'],'500');
+
+        //Remove as relações para poder atualiza-las
+        $grupo->funcoes()->detach();
+
+        if(!$this->storeUpdate($grupo,$request))
+            return response()->json(['message' => 'Grupo alterado com sucesso']);
+        else
+            return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido alterado corretamente'],'500');
+
+    }
 }
