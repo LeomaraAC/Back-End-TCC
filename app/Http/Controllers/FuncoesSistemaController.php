@@ -11,4 +11,8 @@ class FuncoesSistemaController extends Controller
         $listaGrupo = Funcoes::orderBy('nomeTela')->get();
         return $listaGrupo;
     }
+    public function filter(Request $request) {
+        $listaGrupo = Funcoes::orderBy('nomeTela')->where('nomeTela', 'like', '%'.$request->filtro.'%')->get();
+        return $listaGrupo;
+    }
 }
