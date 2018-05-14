@@ -37,7 +37,7 @@ class GruposUsersController extends Controller
     }
 
     public function index() {
-        $listaGrupo = Grupo::all();
+        $listaGrupo = Grupo::orderBy('updated_at', 'desc')->get();
         return $listaGrupo;
     }
 
