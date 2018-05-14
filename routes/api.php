@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
+/*Rotas para autenticação*/
 Route::group([
 
     'prefix' => 'auth'
@@ -21,7 +22,21 @@ Route::group([
 
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::post('refresh', 'AuthController@refresh'); // Não está sendo utilizada
+    Route::post('me', 'AuthController@me'); // Não está sendo utilizada
+
+});
+
+/*Rotas para grupos de usuários*/
+Route::group([
+
+    'prefix' => 'groupUsers'
+
+], function () {
+
+    Route::post('grupo', 'GruposUsersController@criarGrupo');
+    Route::get('grupo', 'GruposUsersController@listarGrupo');
+    Route::delete('grupo', 'GruposUsersController@excluirGrupo');
+    Route::put('grupo', 'GruposUsersController@atualizarGrupo');
 
 });
