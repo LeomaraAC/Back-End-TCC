@@ -12,4 +12,10 @@ class Telas_Sistema extends Model
     protected $primaryKey = 'idTelas';
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
+
+
+    public function grupos()
+    {
+        return $this->belongsToMany(Grupo_Usuarios::class,'permissoes_grupo','idTelas','idGrupo');
+    }
 }
