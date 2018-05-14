@@ -8,7 +8,7 @@ use App\Grupo_Usuarios as Grupo;
 
 class GruposUsersController extends Controller
 {
-    public function criarGrupo(Request $request) {
+    public function store(Request $request) {
         $hasError = false;
         //Gravando o novo grupo
         $grupo = new Grupo;
@@ -27,7 +27,7 @@ class GruposUsersController extends Controller
         else
             return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido criado corretamente'],'500');
     }
-    public function listarGrupo() {
+    public function index() {
         $listaGrupo = Grupo::all();
         return $listaGrupo;
     }

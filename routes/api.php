@@ -34,9 +34,9 @@ Route::group([
 
 ], function () {
 
-    Route::post('grupo', 'GruposUsersController@criarGrupo');
-    Route::get('grupo', 'GruposUsersController@listarGrupo');
-    Route::delete('grupo', 'GruposUsersController@excluirGrupo');
-    Route::put('grupo', 'GruposUsersController@atualizarGrupo');
+    Route::post('grupo', 'GruposUsersController@store');
+    Route::get('grupo', 'GruposUsersController@index');
+    Route::delete('grupo', 'GruposUsersController@destroy');
+    Route::put('grupo', 'GruposUsersController@update');
 
 });
