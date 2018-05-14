@@ -31,4 +31,21 @@ class GruposUsersController extends Controller
         $listaGrupo = Grupo::all();
         return $listaGrupo;
     }
+    public function show($id) {
+        $grupo = Grupo::find($id);
+        $permissoes = array();
+        $cont = 0;
+        foreach ($grupo->funcoes as $funcao) {
+            $permissoes[$cont]["idTelas"] = $funcao->idTelas;
+            $permissoes[$cont]["nomeTela"] = $funcao->nomeTela;
+            $permissoes[$cont]["modulo"] = $funcao->modulo;
+            $cont++;
+
+        }
+        return response()->json([
+            'idGrupo' => $grupo->idGrupo,
+            'grupo' => $grupo->nomeGrupo,
+            'funcoesPermissoes' => $permissoes
+        ]);
+    }
 }
