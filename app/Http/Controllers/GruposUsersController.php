@@ -59,8 +59,8 @@ class GruposUsersController extends Controller
         ]);
     }
 
-    public function destroy(Request $request) {
-        $grupo = Grupo::find($request->idGrupo);
+    public function destroy($id) {
+        $grupo = Grupo::find($id);
         if($grupo != null) {
             $grupo->funcoes()->detach();
             $grupo->delete();
@@ -84,4 +84,6 @@ class GruposUsersController extends Controller
             return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido alterado corretamente'],'500');
 
     }
+
+    public  function filter(Request $request) {}
 }
