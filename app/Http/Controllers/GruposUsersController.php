@@ -14,8 +14,10 @@ class GruposUsersController extends Controller
         $grupo = new Grupo;
         $grupo->nomeGrupo = $request->nomeGrupo;
         $grupo->save();
+        // Removendo possíveis  duplicidade de funções
+        $funcoes = array_unique($request->funcoes);
         // Informando as permssoes do grupo
-        foreach ($request->funcoes as $idFuncao) {
+        foreach ($funcoes as $idFuncao) {
             $funcao = Funcoes::find($idFuncao);
             if ($funcao != null)
                 $grupo->funcoes()->attach($funcao->idTelas);
@@ -26,6 +28,7 @@ class GruposUsersController extends Controller
             return response()->json(['message' => 'Grupo criado com sucesso']);
         else
             return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido criado corretamente'],'500');
+
     }
 
     public function index() {
