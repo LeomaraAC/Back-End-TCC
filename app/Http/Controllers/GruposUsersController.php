@@ -8,14 +8,14 @@ use App\Grupo_Usuarios as Grupo;
 
 class GruposUsersController extends Controller
 {
-    public function store(Request $request) {
+    private function storeUpdate(Grupo $grupo, Request $request) {
         $hasError = false;
-        //Gravando o novo grupo
-        $grupo = new Grupo;
         $grupo->nomeGrupo = $request->nomeGrupo;
         $grupo->save();
+
         // Removendo possíveis  duplicidade de funções
         $funcoes = array_unique($request->funcoes);
+
         // Informando as permssoes do grupo
         foreach ($funcoes as $idFuncao) {
             $funcao = Funcoes::find($idFuncao);
@@ -24,7 +24,12 @@ class GruposUsersController extends Controller
             else
                 $hasError = true;
         }
-        if(!$hasError)
+        return $hasError;
+    }
+    public function store(Request $request) {
+        $grupo = new Grupo;
+
+        if(!$this->storeUpdate($grupo,$request))
             return response()->json(['message' => 'Grupo criado com sucesso']);
         else
             return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido criado corretamente'],'500');
