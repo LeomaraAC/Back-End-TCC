@@ -27,4 +27,8 @@ class GruposUsersController extends Controller
         else
             return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido criado corretamente'],'500');
     }
+    public function listarGrupo() {
+        $listaGrupo = Grupo::all();
+        return $listaGrupo;
+    }
 }
