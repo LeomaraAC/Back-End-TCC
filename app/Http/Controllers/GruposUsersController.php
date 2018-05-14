@@ -85,5 +85,8 @@ class GruposUsersController extends Controller
 
     }
 
-    public  function filter(Request $request) {}
+    public  function filter(Request $request) {
+        $grupos = Grupo::orderBy('updated_at', 'desc')->where('nomeGrupo', 'like', '%'.$request->filtro.'%')->get();
+        return $grupos;
+    }
 }
