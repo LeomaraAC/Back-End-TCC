@@ -42,3 +42,14 @@ Route::group([
     Route::post('filtrarGrupo', 'GruposUsersController@filter');
 
 });
+
+Route::group([
+
+    'prefix' => 'function'
+
+], function () {
+
+    Route::get('funcaoSistema', 'FuncoesSistemaController@index');
+    Route::post('filtrarFuncao', 'FuncoesSistemaController@filter');
+
+});
