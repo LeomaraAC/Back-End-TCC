@@ -17,7 +17,6 @@ class CreateTelasSistemaTable extends Migration
             $table->increments('idTelas');
             $table->string("nomeTela",100);
             $table->string("modulo",100);
-            $table->softDeletes();
         });
     }
 
