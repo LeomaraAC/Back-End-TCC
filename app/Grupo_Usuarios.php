@@ -11,7 +11,7 @@ class Grupo_Usuarios extends Model
     protected $table = 'grupo_usuarios';
     protected $primaryKey = 'idGrupo';
     protected $dates = ['deleted_at'];
-    protected $hidden = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
 
     public function funcoes()
     {
