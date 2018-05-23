@@ -35,11 +35,10 @@ Route::group([
 ], function () {
 
     Route::post('grupo', 'GruposUsersController@store');
-    Route::get('grupo', 'GruposUsersController@index');
+    Route::get('grupo/{sort}/{number}/{filter?}', 'GruposUsersController@index');
     Route::get('grupo/{id}', 'GruposUsersController@show');
     Route::delete('grupo/{id}', 'GruposUsersController@destroy');
     Route::put('grupo', 'GruposUsersController@update');
-    Route::post('filtrarGrupo', 'GruposUsersController@filter');
 
 });
 

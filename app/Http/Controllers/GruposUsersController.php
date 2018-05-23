@@ -36,9 +36,9 @@ class GruposUsersController extends Controller
 
     }
 
-    public function index() {
-        $listaGrupo = Grupo::orderBy('updated_at', 'desc')->get();
-        return $listaGrupo;
+    public function index($order, $size, $filter = null) {
+        $listaGrupo = Grupo::orderBy('nomeGrupo', $order)->where('nomeGrupo', 'like', '%'.$filter.'%')->paginate($size);
+        return response()->json($listaGrupo);
     }
 
     public function show($id) {
