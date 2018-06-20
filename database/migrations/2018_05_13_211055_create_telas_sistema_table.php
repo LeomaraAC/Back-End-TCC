@@ -16,7 +16,6 @@ class CreateTelasSistemaTable extends Migration
         Schema::create('Telas_Sistema', function (Blueprint $table) {
             $table->increments('idTelas');
             $table->string("nomeTela",100);
-            $table->string("modulo",100);
         });
     }
 
