@@ -48,7 +48,6 @@ Route::group([
 
 ], function () {
 
-    Route::get('funcaoSistema', 'FuncoesSistemaController@index');
-    Route::post('filtrarFuncao', 'FuncoesSistemaController@filter');
+    Route::get('funcaoSistema/{sort}/{number}/{filter?}', 'FuncoesSistemaController@index');
 
 });
