@@ -5,16 +5,42 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Telas_Sistema as Funcoes;
 use App\Grupo_Usuarios as Grupo;
+use App\Http\Controllers\AuthController as AuthC;
 
 class GruposUsersController extends Controller
 {
+    /* Validação dos dados recebidos */
+    private function isValid ($request) {
+        if (count($request->permissoes) != 0){
+            $request->validate([
+                'nomeGrupo' => 'bail|required|unique:grupo_usuarios|min:4|max:60',
+            ],[
+                'required' => 'O nome do grupo é obrigatório.',
+                'unique' => 'Já existe um grupo chamado :input.',
+                'min' => 'O nome do grupo deve ter no mínimo 4 caracteres.',
+                'max' => 'O nome do grupo deve ter no máximo 60 caracteres.',
+            ]);
+        }
+    }
+
+    /* Verificando permissão antes de efetuar a ação*/
+    /*public function authorize($operacao)
+    {
+        $id = auth()->user();
+       // $comment = Comment::find($this->route('comment'));
+
+        //return $comment && $this->user()->can('update', $comment);
+        return $id;
+    }*/
+
+    /* Criando/Editando um grupo */
     private function storeUpdate(Grupo $grupo, Request $request) {
         $hasError = false;
         $grupo->nomeGrupo = $request->nomeGrupo;
         $grupo->save();
 
         // Removendo possíveis  duplicidade de funções
-        $funcoes = array_unique($request->funcoes);
+        $funcoes = array_unique($request->permissoes);
 
         // Informando as permssoes do grupo
         foreach ($funcoes as $idFuncao) {
@@ -27,13 +53,13 @@ class GruposUsersController extends Controller
         return $hasError;
     }
     public function store(Request $request) {
+        $this->isValid($request);
         $grupo = new Grupo;
-
+        $per = $request->permissoes;
         if(!$this->storeUpdate($grupo,$request))
             return response()->json(['message' => 'Grupo criado com sucesso']);
         else
             return response()->json(['message'=>'Ops! Ocorreu um erro. O grupo pode não ter sido criado corretamente'],'500');
-
     }
 
     public function index($order, $size, $filter = null) {
